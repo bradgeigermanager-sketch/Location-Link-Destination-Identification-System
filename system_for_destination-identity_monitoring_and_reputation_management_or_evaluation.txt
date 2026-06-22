@@ -1,0 +1,295 @@
+In the destination-identity system we've been describing, anomaly thresholds should generally be **risk-based**, **historically informed**, and **multi-level**, rather than fixed values.
+
+## 1. Start with a Baseline
+
+First, define what "normal" looks like.
+
+Example:
+
+```text
+Earth Port 01
+
+Marker Changes:
+0 per year
+
+Link Reassignments:
+0 per year
+
+Arrival Accuracy:
+99.999%
+
+Audit Failures:
+0
+
+Sponsor Changes:
+1 every 5 years
+```
+
+An anomaly is measured relative to that baseline.
+
+***
+
+## 2. Use Multiple Severity Levels
+
+Instead of:
+
+```text
+Normal
+Anomalous
+```
+
+use:
+
+```text
+Normal
+Warning
+Concern
+Critical
+```
+
+Example:
+
+```text
+Destination Identity Changes
+
+0 changes/year     = Normal
+1 change/year      = Warning
+2-3 changes/year   = Concern
+4+ changes/year    = Critical
+```
+
+This reduces false alarms.
+
+***
+
+## 3. Classify Changes by Impact
+
+Not every event deserves the same threshold.
+
+### High-Criticality Events
+
+These might trigger an alert immediately:
+
+```text
+Marker identity change
+Link destination change
+Sponsor withdrawal
+Identity mismatch
+```
+
+Threshold:
+
+```text
+1 occurrence = Alert
+```
+
+because the risk is inherently high.
+
+***
+
+### Medium-Criticality Events
+
+Examples:
+
+```text
+Reputation decrease
+Traffic shift
+Minor routing variance
+```
+
+Threshold:
+
+```text
+Several occurrences
+before escalation
+```
+
+***
+
+## 4. Relative Thresholds
+
+Different destinations may require different thresholds.
+
+Low-volume location:
+
+```text
+100 arrivals/day
+```
+
+High-volume location:
+
+```text
+10,000,000 arrivals/day
+```
+
+A discrepancy of 10 arrivals means very different things in each case.
+
+Thresholds should scale to activity.
+
+***
+
+## 5. Statistical Thresholds
+
+The reputation engine could monitor deviations from historical norms.
+
+Example:
+
+```text
+Normal:
+0.1% routing variance
+
+Observed:
+5%
+```
+
+The system detects:
+
+```text
+50× normal variance
+```
+
+and raises an alert.
+
+Here the threshold is based on deviation from history rather than an arbitrary number.
+
+***
+
+## 6. Composite Risk Thresholds
+
+Many mature systems don't alert on a single signal.
+
+Instead:
+
+```text
+Risk Score =
+Identity Change
++
+Sponsor Disagreement
++
+Traffic Anomaly
++
+Audit Findings
+```
+
+Example:
+
+```text
+Marker Changed      +50
+No Sponsor Approval +30
+Traffic Shift       +10
+
+Total Risk = 90
+```
+
+Thresholds:
+
+```text
+0-30   Normal
+31-60  Warning
+61-80  Investigation
+81-100 Critical
+```
+
+This reduces noise while still detecting meaningful events.
+
+***
+
+## 7. Reputation-Based Threshold Adjustment
+
+Highly trusted destinations can be monitored differently from new destinations.
+
+Example:
+
+```text
+Established Destination
+History: 40 years
+```
+
+might tolerate small fluctuations without alerting.
+
+Whereas:
+
+```text
+New Destination
+History: 2 weeks
+```
+
+could operate under tighter monitoring until enough evidence accumulates.
+
+***
+
+## 8. Consensus Thresholds
+
+For multi-authority sponsorship, thresholds can be based on agreement levels.
+
+Example:
+
+```text
+5 Authorities
+
+5/5 agree = Normal
+4/5 agree = Warning
+3/5 agree = Investigation
+2/5 agree = Critical
+```
+
+This is especially useful for detecting unauthorized reassignment attempts.
+
+***
+
+## 9. Dynamic Thresholds
+
+A sophisticated system automatically adjusts thresholds.
+
+During a major change:
+
+```text
+New Marker Installation
+```
+
+the system temporarily expects:
+
+```text
+Higher audit activity
+Higher traffic variation
+More configuration changes
+```
+
+and relaxes some thresholds.
+
+After stabilization:
+
+```text
+Thresholds tighten again
+```
+
+***
+
+## Practical Rule
+
+In your marker-switching scenario, I'd use a principle like:
+
+```text
+Identity Changes
+    ↓
+Very Low Threshold
+
+Behavior Changes
+    ↓
+Moderate Threshold
+
+Traffic Variations
+    ↓
+Higher Threshold
+```
+
+In other words, if the network's entire trust model depends on stable destination identity, then:
+
+```text
+Marker Change
+Link Reassignment
+Sponsor Change
+Authority Disagreement
+```
+
+should often have thresholds of **one event equals immediate investigation**, whereas ordinary operational metrics can tolerate a larger range of variation before being classified as anomalous. This prevents a "three-card monte" destination switch from hiding inside a sea of routine operational fluctuations.
