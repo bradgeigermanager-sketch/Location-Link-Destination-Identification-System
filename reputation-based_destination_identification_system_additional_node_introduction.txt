@@ -1,0 +1,210 @@
+In a reputation-based destination system, **new destinations have a bootstrapping problem**:
+
+> They have no history, so how can they be trusted?
+
+A sophisticated system would likely separate **identity confidence** from **reputation**.
+
+```text
+Identity = "Is this destination what it claims to be?"
+
+Reputation = "Has this destination proven itself trustworthy?"
+```
+
+A newly created destination might have:
+
+```text
+Identity Confidence: 95
+Reputation Score: N/A
+Status: Probationary
+```
+
+even though it has no operational history yet.
+
+## Stage 1: Sponsored Introduction
+
+A new destination could inherit initial trust from established authorities.
+
+```text
+Earth Transit Authority
+    ↓
+Introduces
+    ↓
+New Port Alpha
+```
+
+The destination starts with a moderate reputation because a trusted authority is backing it.
+
+```text
+Authority Reputation = 98
+
+New Destination Reputation = 75
+```
+
+rather than starting at zero.
+
+***
+
+## Stage 2: Observation Period
+
+The system monitors early operation.
+
+```text
+Travel Events
+Audit Passes
+Identity Checks
+Link Stability
+```
+
+Every successful verification increases confidence.
+
+```text
+Day 1: Score 75
+Day 30: Score 82
+Day 90: Score 91
+```
+
+***
+
+## Stage 3: Trust Accumulation
+
+The destination gradually builds a reputation through successful operation.
+
+```text
+100 successful arrivals
+1,000 successful arrivals
+10,000 successful arrivals
+```
+
+As evidence accumulates, historical continuity becomes more valuable.
+
+A destination that has operated cleanly for years becomes harder to impersonate.
+
+***
+
+## Stage 4: Reputation Inheritance
+
+A more advanced system could use a trust graph.
+
+```text
+Earth Authority
+     ↓
+Earth Port Network
+     ↓
+New Port Alpha
+```
+
+New destinations inherit some trust from connected entities.
+
+Similar concepts exist in:
+
+* certificate trust chains,
+* professional accreditation,
+* supplier qualification systems.
+
+Trust flows through relationships.
+
+***
+
+## Stage 5: Reputation Decay Protection
+
+A new destination should not be destroyed by lack of history alone.
+
+Instead of:
+
+```text
+No History = Untrusted
+```
+
+the system treats it as:
+
+```text
+No History = Unknown
+```
+
+Unknown and untrusted are different categories.
+
+```text
+Trusted
+Unknown
+Suspicious
+Compromised
+```
+
+A new destination begins as **unknown**, not **suspicious**.
+
+***
+
+## Stage 6: Confidence Intervals
+
+An especially sophisticated system would track confidence separately from reputation.
+
+For example:
+
+```text
+Destination A
+
+Score: 92
+Confidence: High
+Evidence: 20 years
+```
+
+versus
+
+```text
+Destination B
+
+Score: 92
+Confidence: Low
+Evidence: 2 weeks
+```
+
+Both have the same numerical score, but the first is supported by vastly more evidence.
+
+This prevents attackers from creating a brand-new destination that immediately appears as trustworthy as an established one.
+
+***
+
+## Detecting Abuse
+
+Without safeguards, an attacker could repeatedly create fresh destinations.
+
+```text
+Compromised Marker
+      ↓
+Create New Identity
+      ↓
+Reset Reputation
+```
+
+To prevent this, the system would likely retain history of:
+
+* marker ownership,
+* authority sponsorship,
+* previous identities,
+* link lineage.
+
+Even if a destination receives a new name, investigators can trace its ancestry.
+
+***
+
+## The Most Mature Model
+
+The most advanced version would treat reputation like a person's professional reputation:
+
+```text
+Identity
++
+Sponsors
++
+Operational History
++
+Audit Results
++
+Network Relationships
++
+Time
+=
+Reputation
+```
+
+A new destination starts with little evidence but a valid identity. Over time, successful operation converts that initial identity into earned reputation. In a marker-switching scenario, this makes it difficult for someone to introduce a replacement marker and instantly grant it decades of accumulated trust—the new marker would have to earn that reputation or inherit it through tightly controlled authority processes.
