@@ -1,0 +1,307 @@
+For a high-volume version of a **Location–Link–Destination Identification System**, the biggest challenge is that a correlation graph can grow extremely quickly:
+
+```text
+Millions of Destinations
+Millions of Markers
+Billions of Events
+Trillions of Relationships
+```
+
+At that scale, you generally don't want to treat the graph as one giant structure.
+
+## 1. Separate the Operational Graph from the Historical Graph
+
+Keep only current relationships in the live graph.
+
+```text
+Earth Port
+  ↓
+Marker A417
+```
+
+Store old relationships elsewhere:
+
+```text
+2020 → Marker A400
+2022 → Marker A410
+2025 → Marker A417
+```
+
+This prevents the operational graph from continuously growing forever.
+
+***
+
+## 2. Partition the Graph
+
+Split the graph into regions.
+
+```text
+Region A
+Region B
+Region C
+```
+
+Example:
+
+```text
+Earth Sector
+Mars Sector
+Outer Systems
+```
+
+Most correlation queries only need nearby information.
+
+```text
+Earth Port
+```
+
+rarely needs immediate access to every destination in existence.
+
+***
+
+## 3. Use Hierarchical Graphs
+
+Instead of:
+
+```text
+Every Marker
+Connected To
+Every Other Marker
+```
+
+introduce layers.
+
+```text
+Region
+  ↓
+Destination
+  ↓
+Marker
+  ↓
+Link
+```
+
+Queries can stop at higher levels when detailed analysis isn't needed.
+
+***
+
+## 4. Build Event Graphs Separately
+
+Don't continuously attach every event to the primary graph.
+
+Keep:
+
+```text
+Identity Graph
+```
+
+and
+
+```text
+Event Graph
+```
+
+separate.
+
+```text
+Earth Port
+```
+
+exists permanently.
+
+```text
+Audit Event
+Traffic Event
+Marker Event
+```
+
+exist in a fast-moving event store.
+
+Correlation engines then connect them when needed.
+
+***
+
+## 5. Incremental Updates
+
+Avoid rebuilding reputation or correlation scores across the whole network.
+
+If:
+
+```text
+Marker A changes
+```
+
+recompute only:
+
+```text
+Marker A
+Connected Destination
+Connected Authorities
+Connected Links
+```
+
+rather than:
+
+```text
+Entire Network
+```
+
+This dramatically improves scalability.
+
+***
+
+## 6. Sliding Time Windows
+
+Most anomalies are recent.
+
+Maintain active windows:
+
+```text
+Last 5 Minutes
+Last Hour
+Last Day
+```
+
+Older events move into archives.
+
+Correlation calculations operate on:
+
+```text
+Recent Events Only
+```
+
+instead of billions of historical observations.
+
+***
+
+## 7. Precompute Reputation
+
+Instead of calculating reputation every query:
+
+```text
+Earth Port Reputation
+```
+
+is continuously maintained.
+
+```text
+Current Score: 97
+```
+
+Then users and systems read the score directly.
+
+Only changes trigger recalculation.
+
+***
+
+## 8. Use Graph Summaries
+
+Large regions can be summarized.
+
+Instead of:
+
+```text
+10 Million Destinations
+```
+
+represent:
+
+```text
+Region Reputation
+Region Risk
+Region Traffic
+```
+
+at higher levels.
+
+Only drill down when anomalies appear.
+
+***
+
+## 9. Correlation Clustering
+
+Rather than storing every anomaly relationship:
+
+```text
+Event A
+Event B
+Event C
+Event D
+```
+
+group them into a cluster:
+
+```text
+Cluster 314
+
+Affected:
+Earth Port
+
+Risk:
+High
+
+Events:
+4
+```
+
+Analysts investigate clusters instead of individual events.
+
+***
+
+## 10. Multi-Tier Architecture
+
+A mature architecture might look like:
+
+```text
+Sensors
+    ↓
+Event Stream
+    ↓
+Real-Time Correlation Layer
+    ↓
+Operational Graph
+    ↓
+Reputation Engine
+    ↓
+Archive Graph
+```
+
+### Fast Layer
+
+Contains:
+
+* active destinations
+* current links
+* current sponsors
+* current reputation
+
+### Slow Layer
+
+Contains:
+
+* years of audit history
+* historical marker assignments
+* closed incidents
+* retired destinations
+
+***
+
+## Most Sophisticated Approach
+
+The largest systems generally evolve toward a combination of:
+
+```text
+Current-State Graph
++
+Streaming Event Graph
++
+Historical Archive
++
+Regional Partitioning
++
+Incremental Reputation Updates
++
+Cluster-Based Correlation
+```
+
+In the marker-switching scenario we've been exploring, the real-time graph would only track current destination identities, active links, and recent anomalies. Older audit and routing history would be preserved in archives and consulted only when investigators need to reconstruct how a suspicious destination evolved over time. This keeps continuous monitoring responsive even as the overall network grows to enormous size.
