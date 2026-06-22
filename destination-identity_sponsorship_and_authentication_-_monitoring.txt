@@ -1,0 +1,287 @@
+Continuing describing the destination-identity system we've been building, **authority sponsorship** is essentially a trust-transfer mechanism.
+
+## Core Idea
+
+A trusted authority says:
+
+> "We have inspected this new destination and are willing to put our reputation behind it."
+
+Instead of the destination proving decades of history it doesn't yet have, it temporarily borrows trust from an established authority.
+
+```text
+Transit Authority
+      ↓
+Sponsors
+      ↓
+New Destination
+```
+
+## Basic Sponsorship Model
+
+Suppose a new spaceport is created.
+
+```text
+Port Name: Alpha Gateway
+
+History: None
+Reputation: None
+```
+
+The Earth Transit Authority reviews it:
+
+* verifies the marker,
+* verifies the destination identity,
+* verifies the ownership records,
+* verifies the infrastructure.
+
+After approval:
+
+```text
+Sponsored By:
+Earth Transit Authority
+
+Status:
+Provisionally Trusted
+```
+
+The destination receives an initial reputation based on its sponsor.
+
+***
+
+## Reputation Inheritance
+
+A sponsored destination might inherit a portion of the sponsor's reputation.
+
+For example:
+
+```text
+Earth Transit Authority
+Reputation: 98
+```
+
+New destination:
+
+```text
+Base Reputation: 50
+
+Authority Contribution:
++30
+
+Initial Reputation:
+80
+```
+
+The destination is trusted enough to operate but not trusted as highly as its sponsor.
+
+***
+
+## Risk to the Sponsor
+
+Sponsorship is meaningful because it creates accountability.
+
+If a sponsored destination repeatedly fails:
+
+```text
+Alpha Gateway
+    ↓
+Routing Anomalies
+    ↓
+Security Incidents
+```
+
+the sponsoring authority also suffers reputation damage.
+
+```text
+Destination Reputation: -20
+
+Sponsor Reputation: -3
+```
+
+This gives authorities an incentive to sponsor carefully.
+
+***
+
+## Multi-Authority Sponsorship
+
+A more advanced system might require multiple sponsors.
+
+```text
+Transit Authority
+        +
+Security Authority
+        +
+Regional Authority
+```
+
+Together they approve a destination.
+
+```text
+Alpha Gateway
+
+Sponsored By:
+Transport Authority
+Security Authority
+Port Authority
+```
+
+Trust becomes distributed.
+
+***
+
+## Sponsorship Tiers
+
+Not all sponsorships are equal.
+
+### Identity Sponsorship
+
+Authority confirms:
+
+```text
+This marker is genuine.
+```
+
+***
+
+### Operational Sponsorship
+
+Authority confirms:
+
+```text
+This destination is safe to use.
+```
+
+***
+
+### Security Sponsorship
+
+Authority confirms:
+
+```text
+No signs of marker tampering.
+```
+
+***
+
+### Routing Sponsorship
+
+Authority confirms:
+
+```text
+This destination is correctly linked.
+```
+
+A destination may possess some sponsorships but not others.
+
+***
+
+## Conditional Sponsorship
+
+New destinations might initially receive limited trust.
+
+```text
+Maximum Daily Arrivals:
+100
+
+Enhanced Monitoring:
+Enabled
+
+Audit Frequency:
+Weekly
+```
+
+As positive history accumulates, restrictions are removed.
+
+```text
+3 months successful operation
+        ↓
+Expanded Approval
+
+1 year successful operation
+        ↓
+Full Approval
+```
+
+***
+
+## Sponsorship Chains
+
+A sophisticated system could create trust chains.
+
+```text
+Galactic Transit Council
+          ↓
+Earth Transit Authority
+          ↓
+Earth Port Network
+          ↓
+Alpha Gateway
+```
+
+When evaluating Alpha Gateway, the network examines the entire chain.
+
+This resembles how certificate authorities work on modern computer networks.
+
+***
+
+## Sponsorship and Marker Switching
+
+In the marker-switching scenario you've been exploring, sponsorship becomes especially important.
+
+Imagine:
+
+```text
+Earth Port
+       ↓
+Marker A
+```
+
+is suddenly replaced with:
+
+```text
+Earth Port
+       ↓
+Marker B
+```
+
+The system asks:
+
+```text
+Which authority approved Marker B?
+```
+
+If no sponsor exists:
+
+```text
+Status:
+Unauthorized
+```
+
+If a sponsor exists:
+
+```text
+Who approved it?
+When?
+Why?
+```
+
+This creates a traceable chain of responsibility.
+
+***
+
+## Most Advanced Form
+
+The most mature implementation would treat sponsorship as a living relationship rather than a one-time approval.
+
+```text
+Authority
+    ↓
+Continuous Monitoring
+    ↓
+Destination
+    ↓
+Periodic Audits
+    ↓
+Reputation Updates
+```
+
+In that model, authorities aren't merely creating trust—they are continuously maintaining it. If a destination's behavior changes, the authority must either reaffirm its sponsorship or withdraw it, causing the destination's reputation to drop until it can re-establish trust through new verification.
