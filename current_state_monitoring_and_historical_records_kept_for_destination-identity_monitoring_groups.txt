@@ -1,0 +1,340 @@
+For a destination-identity system, historical relationships are often the largest dataset. A destination may have only a few active links, but decades of audits, marker assignments, sponsorships, and anomaly records.
+
+The key principle is:
+
+> Store current state for speed and history for reconstruction.
+
+## 1. Versioned Relationships
+
+Instead of replacing a relationship, give it a validity period.
+
+Example:
+
+```text
+Earth Port
+    USES
+Marker A417
+
+Valid:
+2020-01-01
+to
+2026-03-15
+```
+
+Then:
+
+```text
+Earth Port
+    USES
+Marker B923
+
+Valid:
+2026-03-15
+to Present
+```
+
+Nothing is deleted.
+
+To reconstruct the network at any point:
+
+```text
+"What did Earth Port use
+on 2025-01-01?"
+```
+
+the system selects the relationship valid during that period.
+
+***
+
+## 2. Event Sourcing
+
+Rather than storing every graph state, store only changes.
+
+Example:
+
+```text
+2020:
+Marker Assigned A417
+
+2024:
+Sponsor Added
+
+2026:
+Marker Reassigned B923
+```
+
+The current graph can always be recreated by replaying events.
+
+Advantages:
+
+```text
+Storage Efficient
+Complete History
+Easy Auditing
+```
+
+***
+
+## 3. Relationship Lineage Chains
+
+For critical identities, keep lineage explicitly.
+
+```text
+Earth Port
+
+Marker History:
+
+A400
+ ↓
+A410
+ ↓
+A417
+ ↓
+B923
+```
+
+Investigators can quickly see:
+
+* what changed,
+* when,
+* why,
+* who approved it.
+
+This is especially useful for marker-switch detection.
+
+***
+
+## 4. Delta Storage
+
+Store only differences.
+
+Instead of:
+
+```text
+Graph Snapshot #1
+100M Relationships
+
+Graph Snapshot #2
+100M Relationships
+```
+
+store:
+
+```text
+Snapshot
++
+Changes
+```
+
+Example:
+
+```text
+Added:
+Link-17
+
+Removed:
+Link-12
+
+Modified:
+Marker Assignment
+```
+
+This dramatically reduces storage needs.
+
+***
+
+## 5. Time-Partitioned Archives
+
+Historical data can be partitioned.
+
+```text
+2026 Archive
+2025 Archive
+2024 Archive
+```
+
+or
+
+```text
+Daily
+Monthly
+Yearly
+```
+
+Most investigations focus on recent periods.
+
+This keeps old history accessible without slowing real-time operations.
+
+***
+
+## 6. Relationship Compression
+
+Many relationships remain unchanged for years.
+
+Instead of:
+
+```text
+Earth → Marker A417
+recorded every day
+```
+
+store:
+
+```text
+Earth → Marker A417
+
+Start:
+2020
+
+End:
+2026
+```
+
+One record represents six years of stability.
+
+***
+
+## 7. History Summarization
+
+Very old data can be rolled up.
+
+Instead of:
+
+```text
+10 million audit events
+```
+
+store:
+
+```text
+2020-2025 Summary
+
+Audits: 10,000
+Pass Rate: 99.98%
+Failures: 2
+```
+
+while retaining raw data in deep archives.
+
+***
+
+## 8. Graph Snapshots + Event Logs
+
+A common scalable design is:
+
+```text
+Current Graph
++
+Periodic Snapshots
++
+Event Stream
+```
+
+For example:
+
+```text
+Monthly Snapshot
+```
+
+plus
+
+```text
+All Events Since Snapshot
+```
+
+To reconstruct history:
+
+```text
+Load Snapshot
+Apply Events
+```
+
+This is much faster than replaying years of events.
+
+***
+
+## 9. Hot vs Cold Storage
+
+Split history by access patterns.
+
+### Hot Storage
+
+Frequently accessed:
+
+```text
+Recent 90 Days
+Active Incidents
+Current Lineage
+```
+
+### Cold Storage
+
+Rarely accessed:
+
+```text
+5-Year-Old Audits
+Retired Destinations
+Historical Traffic
+```
+
+This keeps the operational graph fast.
+
+***
+
+## 10. Historical Relationship Graph
+
+For investigations, maintain a separate history graph.
+
+Current graph:
+
+```text
+Earth Port
+   ↓
+Marker B923
+```
+
+Historical graph:
+
+```text
+Earth Port
+   ↓
+A400
+   ↓
+A410
+   ↓
+A417
+   ↓
+B923
+```
+
+The operational system uses the current graph.
+
+Auditors and investigators use the history graph.
+
+***
+
+### A Mature Architecture
+
+A scalable design might look like:
+
+```text
+Current-State Graph
+        +
+Relationship Lineage
+        +
+Event Stream
+        +
+Periodic Snapshots
+        +
+Archived Historical Graph
+```
+
+This gives you:
+
+* fast real-time queries,
+* complete auditability,
+* efficient storage,
+* reconstruction of any past state,
+* support for reputation and anomaly analysis.
+
+In the destination-identity model we've been describing, lineage and event sourcing are especially valuable because they make unauthorized marker switching difficult to hide. Even if an attacker alters the current graph, the historical chain shows exactly when a marker changed, which authorities approved it, and what relationships existed before and after the change.
