@@ -1,0 +1,307 @@
+In a destination-identity system, the best approach is usually **not** to let any single anomaly trigger the final decision. Instead, multiple signals are combined into a **risk score** or **confidence score**.
+
+## Layer 1: Assign Signal Severity
+
+Each anomaly contributes points.
+
+For example:
+
+```text
+Marker Identity Change          +50
+Missing Authorization           +40
+Sponsor Disagreement            +30
+Link Reassignment               +25
+Traffic Anomaly                 +10
+Audit Warning                   +10
+```
+
+Then:
+
+```text
+Total Risk =
+50 + 40 + 30 = 120
+```
+
+Higher scores indicate greater concern.
+
+***
+
+## Layer 2: Weight by Reliability
+
+Some signals are more trustworthy than others.
+
+Example:
+
+```text
+Physical Marker Verification
+Weight: 1.0
+
+Authority Consensus
+Weight: 0.9
+
+Traffic Analysis
+Weight: 0.5
+
+User Reports
+Weight: 0.2
+```
+
+Then:
+
+```text
+Risk Contribution =
+Severity × Weight
+```
+
+A confirmed marker mismatch should carry more weight than an unusual traffic pattern.
+
+***
+
+## Layer 3: Correlation Boosting
+
+Multiple related anomalies occurring together should increase concern faster than treating them independently.
+
+For example:
+
+```text
+Marker Change
++
+Sponsor Disagreement
++
+Link Change
+```
+
+may indicate a common root cause.
+
+Instead of:
+
+```text
+50 + 30 + 25 = 105
+```
+
+the system adds a correlation factor:
+
+```text
+105 + 30 = 135
+```
+
+because these events reinforce one another.
+
+***
+
+## Layer 4: Time-Based Aggregation
+
+Recent signals matter more.
+
+Example:
+
+```text
+Marker Change:
+1 hour ago
+
+Sponsor Disagreement:
+30 minutes ago
+
+Traffic Anomaly:
+10 minutes ago
+```
+
+The clustering itself is suspicious.
+
+A common model is:
+
+```text
+Effective Risk =
+Risk × Time Weight
+```
+
+where newer events receive higher weight.
+
+***
+
+## Layer 5: Destination Reputation Adjustment
+
+The same anomaly can mean different things depending on the destination.
+
+For example:
+
+```text
+Destination Reputation: 99
+```
+
+may receive some benefit of the doubt.
+
+Whereas:
+
+```text
+Destination Reputation: 60
+```
+
+may trigger investigation immediately.
+
+A simple model:
+
+```text
+Adjusted Risk =
+Raw Risk ÷ Reputation Factor
+```
+
+or
+
+```text
+Adjusted Risk =
+Raw Risk × Trust Modifier
+```
+
+***
+
+## Layer 6: Multi-Authority Consensus
+
+You can also combine authority opinions.
+
+Example:
+
+```text
+Transit Authority:
+Risk 80
+
+Security Authority:
+Risk 85
+
+Audit Authority:
+Risk 90
+```
+
+Combined:
+
+```text
+Consensus Risk:
+85
+```
+
+If one authority reports:
+
+```text
+20
+```
+
+while others report:
+
+```text
+90
+```
+
+the disagreement becomes an anomaly itself.
+
+***
+
+## Layer 7: Confidence Scores
+
+An advanced system tracks confidence separately from risk.
+
+Example:
+
+```text
+Risk: 85
+Confidence: High
+```
+
+versus
+
+```text
+Risk: 85
+Confidence: Low
+```
+
+The first comes from strong evidence.
+
+The second comes from weak or incomplete evidence.
+
+This helps distinguish:
+
+```text
+Likely Compromise
+```
+
+from
+
+```text
+Possible Compromise
+```
+
+***
+
+## Example: Marker-Switching Scenario
+
+Suppose the system observes:
+
+```text
+Marker Changed                +50
+Missing Approval              +40
+Sponsor Disagreement          +30
+Traffic Shift                 +10
+```
+
+Base score:
+
+```text
+130
+```
+
+Correlation bonus:
+
+```text
++20
+```
+
+Recent-event multiplier:
+
+```text
+×1.2
+```
+
+Final score:
+
+```text
+180
+```
+
+Thresholds:
+
+```text
+0-30     Normal
+31-60    Warning
+61-100   Investigation
+101-150  High Risk
+151+      Critical
+```
+
+Result:
+
+```text
+Critical
+```
+
+Automatic escalation occurs.
+
+***
+
+A mature system would therefore combine anomaly signals using:
+
+```text
+Weighted Signals
+      +
+Correlation Analysis
+      +
+Time Analysis
+      +
+Authority Consensus
+      +
+Reputation Context
+      +
+Confidence Estimation
+      =
+Final Risk Score
+```
+
+This prevents overreacting to a single odd event while still detecting complex situations where several small anomalies together indicate an unauthorized destination or marker change.
