@@ -1,0 +1,294 @@
+In the reputation and destination-identity system we've been describing, **correlated anomalies** are detected by looking for multiple unusual events that occur together in a way that's unlikely to be random.
+
+Rather than asking:
+
+> "Did something unusual happen?"
+
+the system asks:
+
+> "Did several unusual things happen that appear connected?"
+
+## Correlation by Time
+
+The simplest method is temporal correlation.
+
+Example:
+
+```text
+10:01 Marker Change
+
+10:03 Sponsor Disagreement
+
+10:05 Link Reassignment
+
+10:08 Traffic Anomaly
+```
+
+Each event alone might be explainable.
+
+Together, they form a pattern.
+
+The system groups events occurring within a defined time window:
+
+```text
+Correlation Window:
+15 minutes
+```
+
+Events inside the window are treated as potentially related.
+
+***
+
+## Correlation by Location
+
+Events affecting the same destination are highly suspicious when combined.
+
+```text
+Earth Port
+
+Marker Alert
+Link Alert
+Audit Alert
+```
+
+Since all anomalies involve the same destination, the correlation score increases.
+
+A simple rule might be:
+
+```text
+3 anomalies
+1 destination
+=
+High Correlation
+```
+
+***
+
+## Correlation by Shared Components
+
+The system constructs a graph.
+
+```text
+Earth Port
+    │
+    ├── Marker A417
+    ├── Authority X
+    └── Link 17
+```
+
+Then asks:
+
+```text
+Which anomalies share nodes?
+```
+
+Example:
+
+```text
+Marker Alert
+      │
+Authority Alert
+      │
+Link Alert
+```
+
+All involve Authority X.
+
+That common dependency suggests a single underlying cause.
+
+***
+
+## Causal Correlation
+
+Some events naturally lead to others.
+
+Example:
+
+```text
+Marker Change
+      ↓
+Identity Mismatch
+      ↓
+Sponsor Disagreement
+      ↓
+Traffic Shift
+```
+
+The sequence itself looks meaningful.
+
+The system can maintain known causality chains:
+
+```text
+If A occurs,
+
+and B follows,
+
+and C follows,
+
+increase suspicion.
+```
+
+***
+
+## Statistical Correlation
+
+The system learns what normally happens together.
+
+Suppose historical data shows:
+
+```text
+Marker Change
+
+usually occurs with
+
+Approved Sponsor Update
+```
+
+If a marker changes and no sponsor update occurs:
+
+```text
+Expected Correlation Missing
+```
+
+that becomes an anomaly.
+
+Likewise:
+
+```text
+Link Change
+
+normally causes
+
+0.5% traffic variation
+```
+
+If it suddenly causes:
+
+```text
+20% traffic variation
+```
+
+the observed correlation differs from history.
+
+***
+
+## Multi-Authority Correlation
+
+Different authorities may report related observations.
+
+```text
+Transit Authority:
+Marker Changed
+
+Security Authority:
+Authentication Failed
+
+Audit Authority:
+Approval Missing
+```
+
+Each authority sees a different symptom.
+
+Correlating reports reveals a common event.
+
+Without correlation:
+
+```text
+3 small incidents
+```
+
+With correlation:
+
+```text
+1 major incident
+```
+
+***
+
+## Reputation Correlation
+
+The system can compare anomalies against reputation history.
+
+Example:
+
+```text
+20 Years Stable
+```
+
+followed by:
+
+```text
+Marker Change
+Sponsor Withdrawal
+Traffic Shift
+```
+
+in a single day.
+
+Each anomaly becomes more significant because it deviates sharply from long-term behavior.
+
+***
+
+## Network-Wide Correlation
+
+The most advanced version examines the entire destination graph.
+
+```text
+Earth
+ ↓
+Mars
+ ↓
+Station X
+```
+
+Suppose:
+
+```text
+Earth anomaly
+
+Mars anomaly
+
+Station X anomaly
+```
+
+all occur within minutes.
+
+Even though the destinations differ, they share the same routing corridor or authority.
+
+The system may detect a network-level issue rather than three unrelated incidents.
+
+***
+
+## Correlation Score Example
+
+The engine might calculate:
+
+```text
+Marker Change          50
+Sponsor Disagreement   30
+Traffic Shift          10
+```
+
+Then add correlation bonuses:
+
+```text
+Same Time              +20
+Same Destination       +20
+Same Authority         +15
+```
+
+Result:
+
+```text
+Raw Risk = 90
+
+Correlation Bonus = 55
+
+Final Risk = 145
+```
+
+A moderate collection of isolated anomalies becomes a critical incident because the anomalies support each other.
+
+***
+
+A sophisticated reputation engine therefore treats anomalies as a **graph of events**, not a list of events. It looks for shared timing, shared destinations, shared authorities, shared markers, shared links, and plausible cause-and-effect chains. In a marker-switching scenario, correlation detection is what turns a collection of seemingly minor warnings into evidence of a coordinated destination-identity compromise.
