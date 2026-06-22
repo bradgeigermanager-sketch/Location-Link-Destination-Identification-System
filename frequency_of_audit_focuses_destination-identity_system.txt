@@ -1,0 +1,210 @@
+In a destination-identity system you've been describing, audits would probably occur at **multiple frequencies simultaneously**, rather than on a single schedule.
+
+## Continuous Audits
+
+For a live-link system, some checks would run constantly.
+
+```text
+Every Second:
+- Link identity
+- Marker identity
+- Endpoint consistency
+- Network topology
+```
+
+These are automated integrity checks.
+
+They answer:
+
+> "Has anything changed unexpectedly since the last check?"
+
+Continuous monitoring is the strongest defense against the "three-card monte" marker-switching scenario you've been exploring.
+
+***
+
+## Daily Audits
+
+Automated daily reconciliation could verify:
+
+```text
+Expected Links
+        vs
+Actual Links
+```
+
+and
+
+```text
+Expected Markers
+        vs
+Observed Markers
+```
+
+These audits focus on detecting:
+
+* unauthorized reassignments,
+* missing destinations,
+* new destinations,
+* unexpected configuration changes.
+
+***
+
+## Weekly Audits
+
+Weekly reviews could involve human oversight.
+
+Inspectors review:
+
+* approval records,
+* sponsorship changes,
+* reputation changes,
+* link modifications,
+* destination additions.
+
+The question becomes:
+
+> "Did any authorized changes look suspicious?"
+
+***
+
+## Monthly Audits
+
+Monthly audits might examine entire regions.
+
+Example:
+
+```text
+Earth Region
+    ↓
+All Ports
+    ↓
+All Links
+    ↓
+All Sponsors
+```
+
+This catches issues that individual location audits might miss.
+
+***
+
+## Quarterly Audits
+
+A deeper verification process:
+
+```text
+Physical Inspection
++
+Identity Verification
++
+Historical Review
++
+Authority Confirmation
+```
+
+Auditors physically visit markers (or their equivalent in your system) and verify that records match reality.
+
+***
+
+## Annual Audits
+
+These would probably be the most comprehensive.
+
+The oversight group reconstructs the entire network:
+
+```text
+Known Network
+      ↓
+Current Network
+      ↓
+Compare
+```
+
+Questions include:
+
+* Do all destinations still exist?
+* Are all sponsorships valid?
+* Are all identities still accurate?
+* Have any hidden routes appeared?
+* Has any reputation been improperly transferred?
+
+***
+
+## Risk-Based Audits
+
+The most sophisticated system wouldn't audit everything equally.
+
+Low-risk destination:
+
+```text
+50 years stable
+No incidents
+```
+
+might receive:
+
+```text
+Quarterly inspection
+```
+
+while a high-risk destination:
+
+```text
+Recent reassignment
+Recent anomaly
+New sponsorship
+```
+
+might receive:
+
+```text
+Daily review
+Continuous scrutiny
+```
+
+***
+
+## Event-Triggered Audits
+
+Certain events could automatically trigger immediate investigation:
+
+```text
+Marker change
+New destination
+Sponsor withdrawal
+Unexpected arrivals
+Link reassignment
+Identity mismatch
+```
+
+In a mature system, these are more important than the calendar schedule itself.
+
+***
+
+## A Likely Mature Model
+
+A realistic governance structure for your hypothetical network might look like:
+
+```text
+Continuous:
+  Automated integrity checks
+
+Daily:
+  Network reconciliation
+
+Weekly:
+  Human review
+
+Monthly:
+  Regional audits
+
+Quarterly:
+  Physical verification
+
+Annually:
+  Full-network audit
+
+Immediately:
+  Any suspicious event
+```
+
+The key idea is that the more critical the destination and the larger the consequences of misrouting, the more the system shifts from **periodic inspection** to **continuous verification**. In a network where marker switching could redirect travelers to entirely different locations, waiting months for an audit would likely be considered unacceptable; the system would need ongoing monitoring supplemented by increasingly deeper periodic reviews.
