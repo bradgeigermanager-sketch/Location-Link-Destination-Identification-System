@@ -1,0 +1,283 @@
+In the reputation-based destination system we've been discussing, a **reputation engine** detects anomalies by comparing current behavior against expected behavior. The key idea is:
+
+> Trust isn't based only on what a destination claims to be, but on whether it behaves like it has historically behaved.
+
+### 1. Baseline Modeling
+
+The engine maintains a profile for each destination.
+
+```text
+Earth Port 01
+
+Marker: A417
+Sponsors: 4
+Route Changes: 0/year
+Audit Failures: 0
+Arrivals: 99.999%
+```
+
+This becomes the destination's expected pattern.
+
+When new observations arrive, they are compared against the baseline.
+
+***
+
+### 2. Change Detection
+
+The simplest anomaly detector looks for differences.
+
+```text
+Yesterday:
+Earth → Marker A417
+
+Today:
+Earth → Marker B923
+```
+
+Even if Marker B923 is valid, the change itself is unusual.
+
+The engine asks:
+
+* Was this approved?
+* Does it match historical behavior?
+* Did all sponsors authorize it?
+
+***
+
+### 3. Rate-of-Change Monitoring
+
+A healthy destination might rarely change.
+
+```text
+10 years:
+0 reassignments
+```
+
+Then suddenly:
+
+```text
+3 reassignments
+in 24 hours
+```
+
+The destination may still be operational, but the behavior is statistically abnormal.
+
+***
+
+### 4. Relationship Analysis
+
+The engine looks at connected entities.
+
+```text
+Destination
+├── Marker
+├── Sponsors
+├── Neighboring Locations
+└── Links
+```
+
+Suppose:
+
+```text
+Marker unchanged
+Sponsors unchanged
+Links changed
+```
+
+That inconsistency may indicate a hidden routing modification.
+
+Anomaly detection becomes more powerful when examining relationships rather than isolated objects.
+
+***
+
+### 5. Reputation Drift Detection
+
+Reputation usually changes gradually.
+
+Normal:
+
+```text
+95
+94
+95
+96
+95
+```
+
+Suspicious:
+
+```text
+95
+95
+96
+52
+95
+```
+
+Large jumps can indicate:
+
+* a compromised authority,
+* corrupted records,
+* unauthorized changes,
+* or sensor failures.
+
+***
+
+### 6. Consensus Anomalies
+
+Multiple authorities report independent observations.
+
+```text
+Transit Authority:
+Earth
+
+Security Authority:
+Earth
+
+Audit Authority:
+Mars
+```
+
+The disagreement itself becomes the anomaly.
+
+Even if nobody knows which record is correct, the lack of consensus requires investigation.
+
+***
+
+### 7. Lineage Analysis
+
+The engine tracks destination history.
+
+```text
+Earth Port
+    ↓
+Marker A417
+20 Years
+```
+
+If a new marker suddenly inherits the reputation:
+
+```text
+Earth Port
+    ↓
+Marker B923
+1 Day
+```
+
+the engine notices a mismatch between identity age and reputation age.
+
+This is particularly useful against the "marker switching" scenario you've been exploring.
+
+***
+
+### 8. Traffic Pattern Analysis
+
+The system can observe actual usage.
+
+Normal:
+
+```text
+100,000 arrivals
+100,000 departures
+```
+
+Abnormal:
+
+```text
+100,000 departures
+40,000 arrivals
+```
+
+or
+
+```text
+Earth traffic
+suddenly resembles
+Mars traffic
+```
+
+Such shifts suggest a routing problem even if identity records appear valid.
+
+***
+
+### 9. Cross-Location Validation
+
+Locations verify each other.
+
+```text
+Earth says:
+Linked to Mars
+
+Mars says:
+Linked to Earth
+```
+
+Expected.
+
+But:
+
+```text
+Earth says:
+Linked to Mars
+
+Mars says:
+Linked to Station X
+```
+
+creates an anomaly.
+
+The reputation engine treats conflicting reports as evidence requiring review.
+
+***
+
+### 10. Composite Risk Scoring
+
+Most sophisticated systems would combine many signals.
+
+```text
+Risk =
+Identity Change
++ Sponsor Disagreement
++ Reputation Drift
++ Routing Variance
++ Audit History
+```
+
+For example:
+
+```text
+Earth Port
+
+Marker Changed: Yes
+Sponsor Approval: Missing
+Traffic Pattern: Abnormal
+Consensus: Broken
+
+Risk Score: 92/100
+```
+
+Automatic investigation begins.
+
+***
+
+### Most Advanced Form
+
+The most advanced reputation engine wouldn't merely ask:
+
+> "Did a marker change?"
+
+It would ask:
+
+> "Does the entire behavior of this destination still match the identity it claims to have?"
+
+It evaluates:
+
+* historical behavior,
+* marker consistency,
+* link consistency,
+* sponsor relationships,
+* authority consensus,
+* traffic patterns,
+* audit results.
+
+In a destination-identity network, that's what makes reputation engines valuable: they detect situations where every individual component appears valid, yet the overall pattern suggests that something—such as an unauthorized link reassignment or marker switch—has occurred.
