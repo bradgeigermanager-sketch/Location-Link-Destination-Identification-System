@@ -1,0 +1,304 @@
+For the destination-identity system we've been discussing, a real-time correlation graph would typically be updated using an **event-driven architecture**.
+
+## 1. Treat Everything as an Event
+
+Instead of periodically rebuilding the graph, every change generates an event.
+
+Examples:
+
+```text
+MarkerChanged
+LinkReassigned
+AuthorityApproval
+AuditCompleted
+ReputationUpdated
+TrafficAnomalyDetected
+```
+
+Event stream:
+
+```text
+10:00 MarkerChanged
+10:01 AuditFailed
+10:02 SponsorDisagreed
+10:03 RoutingAnomaly
+```
+
+Each event enters the graph immediately.
+
+***
+
+## 2. Maintain a Live Entity Graph
+
+The graph stores current state.
+
+```text
+Earth Port
+    |
+    +--USES--> Marker A417
+
+Earth Port
+    |
+    +--SPONSORED_BY--> Authority X
+```
+
+When an event arrives:
+
+```text
+MarkerChanged:
+A417 → B923
+```
+
+the graph updates:
+
+```text
+Earth Port
+    |
+    +--USES--> Marker B923
+```
+
+while preserving history.
+
+***
+
+## 3. Never Delete History
+
+A useful pattern is:
+
+```text
+Current State Graph
++
+Historical Graph
+```
+
+Current:
+
+```text
+Earth → Marker B923
+```
+
+History:
+
+```text
+Earth → Marker A417
+      → Marker B923
+```
+
+This makes correlation and audits much easier.
+
+***
+
+## 4. Create Event Nodes Dynamically
+
+When a new event arrives:
+
+```text
+MarkerChanged
+```
+
+create a node:
+
+```text
+[Event: 7342]
+```
+
+and connect it.
+
+```text
+Event 7342
+     |
+ AFFECTED
+     |
+Marker B923
+```
+
+Now future searches can find:
+
+```text
+All anomalies involving Marker B923
+```
+
+instantly.
+
+***
+
+## 5. Maintain Sliding Time Windows
+
+Correlation often depends on time.
+
+For example:
+
+```text
+Last 5 Minutes
+
+Last Hour
+
+Last 24 Hours
+```
+
+As new events arrive, the system automatically links nearby events.
+
+```text
+Marker Change
+      |
+2 min
+      |
+Sponsor Warning
+      |
+1 min
+      |
+Traffic Anomaly
+```
+
+These form a cluster.
+
+***
+
+## 6. Continuously Recompute Risk
+
+Whenever a relevant node changes:
+
+```text
+Marker Changed
+```
+
+recompute:
+
+```text
+Destination Risk
+Marker Reputation
+Authority Reputation
+Cluster Risk
+```
+
+For example:
+
+```text
+Earth Port Risk:
+20 → 85
+```
+
+after several connected anomalies appear.
+
+***
+
+## 7. Maintain Relationship Counters
+
+Store statistics on edges.
+
+Example:
+
+```text
+Authority X
+     |
+ SPONSORS
+     |
+Earth Port
+
+Count: 15 years
+Audits: 324
+Incidents: 0
+```
+
+These counters update continuously and support reputation calculations.
+
+***
+
+## 8. Detect Clusters Incrementally
+
+Rather than rebuilding the entire graph, update only nearby nodes.
+
+When:
+
+```text
+Marker A417 changes
+```
+
+check:
+
+* connected destinations,
+* connected authorities,
+* connected links,
+* connected anomalies.
+
+This is much faster than scanning the whole network.
+
+***
+
+## 9. Stream Processing Layer
+
+Conceptually:
+
+```text
+Event Sources
+      ↓
+Event Stream
+      ↓
+Graph Updater
+      ↓
+Correlation Engine
+      ↓
+Risk Engine
+      ↓
+Alerts
+```
+
+Every event flows through the same pipeline.
+
+***
+
+## 10. Automatic Graph Expansion
+
+Over time the graph becomes richer.
+
+Example:
+
+```text
+Earth Port
+```
+
+starts with:
+
+```text
+Marker
+Authority
+```
+
+Later acquires:
+
+```text
+Marker
+Authority
+Region
+Traffic History
+Audit History
+Reputation
+Anomalies
+```
+
+The graph grows naturally as observations arrive.
+
+***
+
+### Example
+
+Suppose these events arrive within five minutes:
+
+```text
+10:00 MarkerChanged
+10:02 SponsorDisagreement
+10:03 AuditFailure
+10:05 TrafficAnomaly
+```
+
+The real-time graph engine would:
+
+1. Create four event nodes.
+2. Connect all to the affected destination.
+3. Detect shared marker and authority relationships.
+4. Form an anomaly cluster.
+5. Increase the cluster's correlation score.
+6. Raise destination risk.
+7. Trigger an alert if thresholds are exceeded.
+
+In this design, the graph is never "rebuilt." It is a continuously evolving network where every event immediately modifies both the current state and the system's understanding of relationships, reputation, and risk.
