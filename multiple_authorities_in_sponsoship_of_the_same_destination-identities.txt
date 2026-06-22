@@ -1,0 +1,178 @@
+A mature destination-identity system would likely **prefer multiple authorities sponsoring a destination**, because it reduces the risk that a single compromised authority could introduce an unauthorized marker or destination.
+
+### Simple Model
+
+Instead of:
+
+```text
+Earth Transit Authority
+           ↓
+      Destination
+```
+
+you have:
+
+```text
+Transit Authority
+        +
+Security Authority
+        +
+Regional Authority
+        ↓
+    Destination
+```
+
+The destination gains trust only when all required sponsors agree.
+
+***
+
+### Why Multiple Sponsors Help
+
+Each authority can validate a different aspect of the destination.
+
+```text
+Transit Authority
+→ Routing validity
+
+Security Authority
+→ Marker integrity
+
+Regional Authority
+→ Physical existence
+
+Port Authority
+→ Operational status
+```
+
+A destination's identity becomes a combination of independent attestations.
+
+***
+
+### Reputation Weighting
+
+Sponsors need not contribute equally.
+
+For example:
+
+```text
+Transit Authority
+Reputation: 98
+Weight: 40%
+
+Security Authority
+Reputation: 95
+Weight: 40%
+
+Regional Authority
+Reputation: 90
+Weight: 20%
+```
+
+The destination's initial trust could be derived from the weighted average of its sponsors.
+
+***
+
+### Consensus-Based Approval
+
+More sophisticated systems might require a quorum.
+
+Examples:
+
+```text
+Any 2 of 3 sponsors
+```
+
+or
+
+```text
+3 of 5 sponsors
+```
+
+or even
+
+```text
+All sponsors must agree
+```
+
+before a marker reassignment becomes active.
+
+This makes "three-card monte" style switching much harder, because an attacker would need to compromise multiple authorities simultaneously.
+
+***
+
+### Cross-Monitoring
+
+Multiple sponsors can also monitor one another.
+
+```text
+Authority A:
+Earth Marker A
+
+Authority B:
+Earth Marker A
+
+Authority C:
+Earth Marker B
+```
+
+The disagreement itself becomes an alert.
+
+In this model, security doesn't depend on everyone being honest—it depends on at least one independent authority noticing something wrong.
+
+***
+
+### Sponsor Graphs
+
+The most advanced version becomes a trust network:
+
+```text
+Destination
+├── Transit Authority
+├── Security Authority
+├── Customs Authority
+├── Regional Authority
+└── Infrastructure Authority
+```
+
+Each sponsor contributes evidence.
+
+If one sponsor withdraws support:
+
+```text
+4 sponsors active
+Score = 97
+
+3 sponsors active
+Score = 88
+
+1 sponsor active
+Score = 55
+```
+
+The destination remains usable but becomes progressively less trusted.
+
+***
+
+### Handling Marker Changes
+
+In the marker-switching scenario you've been exploring, a reassignment might require:
+
+```text
+Current Marker:
+A417
+
+Proposed Marker:
+B923
+
+Required Approvals:
+✓ Transit Authority
+✓ Security Authority
+✓ Regional Authority
+✓ Audit Authority
+```
+
+Only after all approvals are recorded does the destination inherit the historical reputation associated with the old marker.
+
+Without those approvals, the system would treat the new marker as an unsponsored destination with little or no reputation, making unauthorized substitutions immediately suspicious.
+
+So in a mature destination-identity architecture, **multiple authorities sponsoring a single destination is not merely possible—it is likely the preferred security model**, because trust becomes distributed, auditable, and substantially harder to manipulate.
