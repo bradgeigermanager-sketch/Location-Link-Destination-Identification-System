@@ -1,0 +1,260 @@
+In a destination-identity architecture, an **oversight group physically and logically verifying links at each location** is probably one of the most natural audit models;
+
+The interesting part is that auditing can occur at several levels simultaneously.
+
+## Level 1: Marker Audit
+
+Inspectors visit a destination and verify:
+
+```text
+Location
+    ↓
+Marker
+    ↓
+Identity Records
+```
+
+Questions:
+
+* Does the marker actually exist?
+* Is it the correct marker?
+* Does it match registry records?
+* Has it been replaced?
+* Have its attributes changed?
+
+This is analogous to inspecting a lighthouse or airport beacon.
+
+***
+
+## Level 2: Link Audit
+
+Instead of auditing only the marker, auditors verify all known links.
+
+```text
+Earth Port
+
+Link A → Mars
+Link B → Venus
+Link C → Station X
+```
+
+The audit checks:
+
+```text
+Expected Destination
+        vs
+Observed Destination
+```
+
+This directly targets the marker-switching problem.
+
+***
+
+## Level 3: Reciprocal Verification
+
+This is similar to the model you suggested.
+
+Suppose:
+
+```text
+Earth → Mars
+```
+
+exists.
+
+Auditors also verify:
+
+```text
+Mars → Earth
+```
+
+from the other side.
+
+The network becomes self-checking.
+
+```text
+Location A confirms B
+Location B confirms A
+```
+
+If one side reports a different relationship, an inconsistency appears.
+
+***
+
+## Level 4: Independent Oversight Teams
+
+A stronger model avoids having the destination verify itself.
+
+```text
+Local Authority
+Regional Authority
+Independent Authority
+```
+
+Each performs separate inspections.
+
+For example:
+
+```text
+Earth Port says:
+Link → Mars
+
+Regional Auditor says:
+Link → Mars
+
+Independent Auditor says:
+Link → Station X
+```
+
+Immediately there's an investigation.
+
+***
+
+## Level 5: Network Reconciliation
+
+The entire network is periodically reconstructed.
+
+Imagine:
+
+```text
+Location A
+Location B
+Location C
+Location D
+```
+
+Every location reports:
+
+* its markers,
+* its links,
+* its destination identities.
+
+The oversight authority builds a global map.
+
+```text
+Expected Network
+        ↓
+Observed Network
+        ↓
+Comparison
+```
+
+Unauthorized additions, removals, or switches become visible.
+
+***
+
+## Level 6: Link Lineage Auditing
+
+One particularly powerful idea is maintaining a complete history.
+
+```text
+Earth Marker
+
+2024 → Marker A
+2025 → Marker A
+2026 → Marker A
+2027 → Marker B
+```
+
+Auditors ask:
+
+> Why did Marker B appear?
+
+Every transition must have a corresponding authorization trail.
+
+```text
+Who approved it?
+When?
+Under what authority?
+```
+
+***
+
+## Level 7: Random Route Validation
+
+Auditors occasionally perform test trips.
+
+```text
+Requested:
+Earth Port
+
+Expected:
+Earth Port
+
+Observed:
+Earth Port
+```
+
+or
+
+```text
+Requested:
+Earth Port
+
+Observed:
+Unknown Destination
+```
+
+This catches problems that registry checks might miss.
+
+***
+
+## Level 8: Distributed Witness Model
+
+The most advanced version may not rely on one oversight group at all.
+
+Instead:
+
+```text
+Location A audits B
+Location B audits C
+Location C audits D
+Location D audits A
+```
+
+Combined with central authorities:
+
+```text
+Transit Authority
+Security Authority
+Audit Authority
+```
+
+you get a web of verification.
+
+Every destination is continuously checked by multiple independent entities.
+
+***
+
+## Most Mature Audit Architecture
+
+A sophisticated system would probably combine all of these:
+
+```text
+Physical Marker Inspection
++
+Live Link Verification
++
+Reciprocal Validation
++
+Independent Auditors
++
+Global Network Mapping
++
+Historical Lineage Review
++
+Random Route Testing
++
+Multi-Authority Oversight
+```
+
+In such a system, a "three-card monte" marker switch becomes difficult because the attacker is not merely changing one link. They must also avoid detection by:
+
+* local inspections,
+* reciprocal destination checks,
+* network reconciliation processes,
+* historical audits,
+* independent authorities,
+* and test-route verification.
+
+The audit process essentially turns the transportation network into a continuously verified graph, where every destination's identity is confirmed not only by itself, but by the destinations and authorities connected to it.
