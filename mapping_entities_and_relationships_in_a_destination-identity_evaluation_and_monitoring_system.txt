@@ -1,0 +1,293 @@
+For a **Location–Link–Destination Identification System**, a correlation graph would be a graph database or network model that represents **entities** and **relationships** instead of storing isolated events.
+
+The key idea is:
+
+> Don't store anomalies by themselves. Store what they happened *to*, *who reported them*, *when they occurred*, and *what else they touched*.
+
+## Step 1: Define the Nodes
+
+Every important object becomes a node.
+
+```text
+Destination
+Marker
+Link
+Authority
+Sponsor
+Audit
+Anomaly
+Region
+Transport Route
+```
+
+Example:
+
+```text
+[Earth Port]
+[Marker A417]
+[Link-17]
+[Security Authority]
+```
+
+## Step 2: Define Relationships
+
+Connect nodes with edges.
+
+```text
+Earth Port
+    |
+    +--USES--> Marker A417
+
+Earth Port
+    |
+    +--CONNECTED_TO--> Link-17
+
+Security Authority
+    |
+    +--SPONSORS--> Earth Port
+```
+
+Graph:
+
+```text
+Security Authority
+         |
+         | SPONSORS
+         v
+
+    Earth Port
+      /    \
+     /      \
+USES       USES
+   /          \
+Marker A417   Link-17
+```
+
+## Step 3: Represent Anomalies as Nodes
+
+Instead of simply logging:
+
+```text
+Marker Changed
+```
+
+create an anomaly node.
+
+```text
+[Marker Change Event]
+```
+
+and connect it.
+
+```text
+Marker Change Event
+        |
+        +--AFFECTS--> Marker A417
+```
+
+Now the anomaly becomes part of the graph.
+
+## Step 4: Add Time
+
+Every event gets timestamps.
+
+```text
+Event A
+10:01
+
+Event B
+10:03
+
+Event C
+10:04
+```
+
+The graph can now detect clustering.
+
+```text
+Marker Change
+      |
+2 min apart
+      |
+Sponsor Disagreement
+      |
+1 min apart
+      |
+Routing Change
+```
+
+## Step 5: Track Shared Dependencies
+
+The graph becomes powerful when multiple anomalies touch the same objects.
+
+Example:
+
+```text
+Marker Change
+      |
+      v
+Marker A417
+      ^
+      |
+Audit Failure
+```
+
+and
+
+```text
+Marker A417
+      |
+      v
+Security Authority
+```
+
+Multiple anomalies pointing to the same marker suggest a common root cause.
+
+## Step 6: Build Correlation Scores
+
+Suppose the graph contains:
+
+```text
+Affects Marker A417
+Affects Earth Port
+Reported By Authority X
+Occurred Within 5 Minutes
+```
+
+Each shared connection increases correlation.
+
+Example:
+
+```text
+Same Marker       +30
+Same Destination  +20
+Same Authority    +15
+Same Time Window  +25
+```
+
+Result:
+
+```text
+Correlation Score = 90
+```
+
+High score means the anomalies are probably related.
+
+## Step 7: Search for Clusters
+
+Once the graph grows, look for clusters.
+
+Example:
+
+```text
+         Authority X
+           /   |   \
+          /    |    \
+      Event A Event B Event C
+          \    |    /
+           \   |   /
+          Marker A417
+```
+
+This forms an anomaly cluster.
+
+Instead of three separate incidents, the system sees:
+
+```text
+Potential Marker Compromise
+```
+
+## Step 8: Trace Root Causes
+
+One of the biggest advantages:
+
+You can walk the graph backwards.
+
+Start with:
+
+```text
+Traffic Anomaly
+```
+
+Follow relationships:
+
+```text
+Traffic Anomaly
+      ↓
+Link-17
+      ↓
+Earth Port
+      ↓
+Marker A417
+      ↓
+Authority X
+```
+
+Now investigators can ask:
+
+> What object appears most often in the anomaly cluster?
+
+The node with the most anomaly connections may be the root cause.
+
+## Step 9: Build Reputation into the Graph
+
+Nodes can have scores.
+
+Example:
+
+```text
+Earth Port
+Reputation: 98
+
+Authority X
+Reputation: 95
+
+Marker A417
+Reputation: 99
+```
+
+When correlation is calculated, reputation affects confidence.
+
+A cluster involving several low-reputation entities becomes more suspicious than one involving highly trusted entities.
+
+## Step 10: Create a Living Network
+
+The final graph might look like:
+
+```text
+                  Authority X
+                  /        \
+                 /          \
+          Sponsors      Reports
+               |             |
+               v             v
+
+          Earth Port <-- Affected By --> Event A
+               |
+               |
+             Uses
+               |
+               v
+
+          Marker A417 <-- Affected By --> Event B
+               |
+               |
+          Linked Through
+               |
+               v
+
+            Link-17 <-- Affected By --> Event C
+```
+
+The graph is no longer just recording events.
+
+It is answering questions like:
+
+* Which anomalies are related?
+* Which destination is implicated?
+* Which authority is common to all alerts?
+* Which marker appears most often?
+* What changed immediately before the incident?
+* What is the most likely root cause?
+
+In the marker-switching scenario we've been describing, a correlation graph is especially useful because unauthorized switching is unlikely to generate only one alert. It may produce marker anomalies, sponsorship disagreements, routing anomalies, audit findings, and reputation changes. The graph links all of those signals together and makes the underlying pattern visible.
