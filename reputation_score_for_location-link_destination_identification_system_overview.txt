@@ -1,0 +1,206 @@
+In the system, a reputation score would likely be calculated from a combination of **identity confidence**, **historical consistency**, **operational reliability**, and **independent verification**.
+
+One possible formula might look like:
+
+```text
+Reputation Score =
+  30% Identity Stability
++ 25% Arrival Accuracy
++ 20% Audit Results
++ 15% Network Consensus
++ 10% Historical Continuity
+```
+
+## Identity Stability
+
+Measures how often the destination's identity has changed.
+
+```text
+Years without marker change
+Number of reassignments
+Unauthorized modifications
+```
+
+Example:
+
+```text
+Earth Port 01
+
+8 years unchanged
+0 unauthorized changes
+
+Score: 99
+```
+
+versus
+
+```text
+Earth Port 01
+
+5 reassignments this month
+
+Score: 40
+```
+
+The more stable the identity, the higher the reputation.
+
+***
+
+## Arrival Accuracy
+
+Tracks whether travelers actually arrive where they intended to go.
+
+```text
+Departures: 1,000,000
+Successful Arrivals: 999,998
+
+Accuracy:
+99.9998%
+```
+
+Destinations with frequent routing discrepancies lose reputation.
+
+***
+
+## Audit Results
+
+Independent inspectors periodically verify destination integrity.
+
+```text
+Audit Success Rate:
+98 / 100
+```
+
+Recent failures might reduce reputation much more heavily than old failures.
+
+For example:
+
+```text
+Passed yesterday: +5
+
+Failed yesterday: -25
+```
+
+***
+
+## Network Consensus
+
+Measures agreement among independent authorities.
+
+```text
+Transport Authority:
+Earth Port
+
+Security Authority:
+Earth Port
+
+Regional Authority:
+Earth Port
+```
+
+High agreement increases confidence.
+
+Disagreement reduces score:
+
+```text
+Authority A:
+Earth
+
+Authority B:
+Mars
+
+Authority C:
+Unknown
+```
+
+This suggests potential tampering.
+
+***
+
+## Historical Continuity
+
+This is where reputation becomes especially useful for detecting marker switching.
+
+Suppose:
+
+```text
+Marker A
+served Earth
+for 40 years
+```
+
+Suddenly:
+
+```text
+Earth
+now points to Marker B
+```
+
+Even if technically authorized, the score decreases because the change deviates from historical behavior.
+
+The system asks:
+
+> Is this destination behaving like the destination we've known for decades?
+
+***
+
+## Time Weighting
+
+Recent behavior matters more than ancient behavior.
+
+For example:
+
+```text
+10-year-old failure:
+-1 point
+
+Failure today:
+-20 points
+```
+
+This prevents very old incidents from permanently damaging a destination's reputation.
+
+***
+
+## Confidence Levels
+
+The final score could be translated into trust categories.
+
+```text
+95-100  Trusted
+85-94   Verified
+70-84   Caution
+50-69   Suspicious
+0-49    Restricted
+```
+
+A transport system might refuse automatic routing to destinations below a certain threshold.
+
+***
+
+## Advanced Reputation Graph
+
+A sophisticated implementation might score not only the destination but the entire ecosystem around it:
+
+```text
+Earth Port
+├── Marker Reputation
+├── Authority Reputation
+├── Beacon Reputation
+├── Link Reputation
+└── Region Reputation
+```
+
+The final score becomes a weighted combination of all connected entities.
+
+```text
+Destination Reputation
+      ↓
+Trust Graph Evaluation
+      ↓
+Risk Assessment
+      ↓
+Transport Approval
+```
+
+In a marker-switching scenario, the most important role of reputation is that it provides **memory**. Authentication can verify that a marker is valid *right now*, but reputation can reveal that a destination's identity suddenly changed after decades of consistency. That makes reputation particularly effective at detecting any sort of "three-card monte" destination reassignment model.
