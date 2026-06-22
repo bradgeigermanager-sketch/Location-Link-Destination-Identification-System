@@ -1,0 +1,258 @@
+In the **Location–Link–Destination Identification System**, a **reputation-based identity** system would answer a different question than ordinary authentication.
+
+Authentication asks:
+
+> "Is this destination really Earth Port 01?"
+
+Reputation asks:
+
+> "Has Earth Port 01 behaved consistently enough over time that we trust it?"
+
+## Basic Idea
+
+Instead of trusting a destination solely because it presents the correct identity, the network maintains a historical trust record.
+
+```text
+Destination
+    ↓
+Identity Verification
+    ↓
+Behavior History
+    ↓
+Trust Score
+    ↓
+Routing Decision
+```
+
+Every destination accumulates a history.
+
+For example:
+
+```text
+Earth Port 01
+
+Identity Matches: 100%
+Successful Arrivals: 99.999%
+Unexpected Changes: 0
+Inspections Passed: 487
+Trust Score: 99.98
+```
+
+## Why Authentication Isn't Enough
+
+Imagine a marker switch occurs.
+
+The attacker manages to modify the system so that:
+
+```text
+Earth Port 01
+     ↓
+New Marker
+```
+
+is now considered officially valid.
+
+Identity checks alone might not catch it immediately.
+
+A reputation system would notice sudden changes:
+
+```text
+Historical Marker:
+A417
+
+Current Marker:
+B923
+```
+
+and ask:
+
+> Why did a destination with 50 years of stable behavior suddenly change identity?
+
+The destination becomes suspicious even if technical authentication appears valid.
+
+## Reputation Components
+
+A sophisticated system might calculate trust from many sources.
+
+### Stability
+
+Has the destination remained consistent?
+
+```text
+Stable 20 years
+     ↓
+High Reputation
+```
+
+versus
+
+```text
+Changed 4 times this month
+     ↓
+Low Reputation
+```
+
+***
+
+### Travel Outcomes
+
+Did travelers arrive where expected?
+
+```text
+10 million departures
+10 million arrivals
+
+Excellent Reputation
+```
+
+versus
+
+```text
+10 million departures
+9.8 million arrivals
+
+Reputation Penalty
+```
+
+***
+
+### Audit History
+
+How often does inspection succeed?
+
+```text
+Inspection 1: Pass
+Inspection 2: Pass
+Inspection 3: Pass
+```
+
+Repeated successful audits increase trust.
+
+***
+
+### Link Continuity
+
+In your live-link system:
+
+```text
+Link A
+   ↓
+Marker A
+```
+
+The longer that relationship remains unchanged, the higher the confidence.
+
+A destination that frequently changes endpoints would become less trusted.
+
+## Network Reputation
+
+The idea can grow beyond individual markers.
+
+Instead of:
+
+```text
+Trust Marker
+```
+
+the system begins to trust:
+
+```text
+Marker
+Port
+Region
+Authority
+Network
+```
+
+For example:
+
+```text
+Earth Authority Reputation: 99.9
+
+Earth Port 01 Reputation: 99.8
+
+Earth Transit Region Reputation: 99.7
+```
+
+A destination inherits trust from the systems around it.
+
+## Reputation Graphs
+
+Eventually you get a trust graph.
+
+```text
+Earth Port
+    │
+    ├── Marker
+    ├── Regional Beacons
+    ├── Space Traffic Stations
+    ├── Authority Registries
+    └── Audit Records
+```
+
+Each relationship contributes evidence.
+
+The destination becomes trusted not merely because it claims to be Earth Port, but because thousands of independent observations agree that it has been Earth Port for years.
+
+## Detecting Marker Switching
+
+This is where reputation becomes powerful.
+
+Suppose someone plays a "three-card monte" game:
+
+```text
+Yesterday
+
+Earth → Marker A
+Mars  → Marker B
+
+Today
+
+Earth → Marker B
+Mars  → Marker A
+```
+
+Authentication might see:
+
+```text
+Valid Marker
+Valid Marker
+```
+
+and approve both.
+
+A reputation system sees:
+
+```text
+50 years of Earth history
+suddenly attached to Marker B
+```
+
+and immediately raises suspicion.
+
+The marker may be valid, but the *history doesn't fit*.
+
+## Advanced Form
+
+The most sophisticated version becomes predictive.
+
+Instead of asking:
+
+> "Did something change?"
+
+it asks:
+
+> "Is this destination behaving like the destination it claims to be?"
+
+The system compares:
+
+* historical traffic patterns,
+* authority records,
+* neighboring markers,
+* environmental measurements,
+* endpoint characteristics,
+* traveler outcomes.
+
+If "Earth Port" suddenly begins exhibiting characteristics associated with some other destination, the reputation engine flags it long before a human operator notices.
+
+So in the architecture, reputation-based identity is essentially **destination memory**: the network remembers what a destination has historically been, and uses that history to detect subtle marker substitutions that ordinary identity checks could miss.
